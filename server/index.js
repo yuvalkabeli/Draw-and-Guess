@@ -24,28 +24,29 @@ io.on('connection', (socket) => {
                 username,
                 id:socket.id
             })
-            io.to(socket.id).emit('users',users)
+            socket.emit('users',users)
             if(users.length===2){
-                console.log('im here');
-                socket.to(users[0].id).emit('start game')
+                socket.to(users[0].id).emit('start game');
             }
         }
         else{
-            io.emit('room full')
-            console.log(users);
+            io.emit('room full');
         }
     })
     socket.on('start draw',()=>{
-        console.log(users[1]);
-        socket.to(users[1].id).emit('start guess')
+        socket.to(users[1].id).emit('start guess');
     })
+    socket.on('pass stroke',(stroke)=>{
+        console.log(users[1])
+        socket.to(users[1].id).emit('load stroke',stroke)
+    })
+    socket.on('undo',()=>{
+        console.log('undo is here')
+        socket.to(users[1].id).emit('undo')
+    })
+
+    socket.on("disconnect", () => {
+        io.emit("messageBack", { message: "disconnected" });
+      });
 });
 
-
-process.on('unhandledRejection', (err) => {
-
-  console.error(`Error: ${err.message}`);
-  server.close(() => {
-    process.exit(1);
-  });
-});

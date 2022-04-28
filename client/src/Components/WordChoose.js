@@ -3,9 +3,6 @@ import { useNavigate } from 'react-router-dom'
 
 export default function WordChoose({socket}) {
   const nav = useNavigate()
-  useEffect(()=>{
-
-  },[socket])
   const sendWord = (e)=>{
     const wordData = {points:e.target.value,word:e.target.innerText}
     console.log('should go to drawing')

@@ -10,26 +10,36 @@ const styles = {
 export default function Drawing({socket}) {
     const canvas = useRef()
     const transferStrokes = async () => {
+      console.log('saasa')
         //sends stroke to the other canvas
-        
         const stroke = await canvas.current.exportPaths("png") 
+        socket.emit('pass stroke',stroke)
     }
-
+    const transferResetCanvas=()=>{
+socket.emit('reset canvas')
+    }
+    const transferUndo=()=>{
+socket.emit('undo')
+ canvas.current.undo()
+    }
+    const transferRedo=()=>{
+socket.emit('redo')
+    }
     return (
       <div>
         <ReactSketchCanvas
           ref={canvas}
-          strokeWidth={5}
+          strokeWidth={3}
           strokeColor="black"
           onChange={()=>transferStrokes()}
           />
-        <button onClick={async()=>{
+        <button onClick={()=>{
           canvas.current.resetCanvas()
         }} className='clear'>clear</button>
-        <button onClick={async()=>{
-          canvas.current.undo()
-        }} className='undo'>undo</button>
-        <button onClick={async()=>{
+        
+        <button onClick={()=>transferUndo()} className='undo'>undo</button>
+
+        <button onClick={()=>{
             canvas.current.redo()
           }} className='redo'>redo</button>
         </div> 

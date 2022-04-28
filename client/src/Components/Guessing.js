@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { ReactSketchCanvas } from 'react-sketch-canvas';
 
 const styles = {
@@ -9,18 +9,22 @@ const styles = {
 
 export default function Drawing({socket}) {
     const canvas = useRef()
-
+    useEffect(()=>{
+      socket.on('load stroke',(stroke)=>{
+        canvas.current.loadPaths(stroke)
+      })
+      socket.on('undo',()=>{
+        console.log("undo is also here")
+        canvas.current.undo()
+      })
+    },[socket])
   return (
       <div>
         <ReactSketchCanvas
           ref={canvas}
           strokeColor="none"   
-          onChange={async () => {
-              //recieve from the other canvas
-            const l = await canvas.current.exportPaths("png") 
-            }
-        }
         />
+        <input type="text" />
         </div> 
   )
 }

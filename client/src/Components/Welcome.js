@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom'
 export default function Welcome({socket}) {
     const nameInput = useRef()
     const nav = useNavigate()
-    const hello=()=>{
+    const enterGame=()=>{
         socket.emit('enter game',nameInput.current.value)
     }
     useEffect(()=>{
@@ -19,7 +19,7 @@ export default function Welcome({socket}) {
             welcome
             <input type="text" ref={nameInput}/>
             <br />
-            <button className='enterGame' onClick={()=>hello()}>aaaa</button>
+            <button className='enterGame' onClick={()=>enterGame()}>aaaa</button>
         </div>
     )
 }

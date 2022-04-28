@@ -3,14 +3,11 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 export default function Waiting({socket}) {
   const {state:users} = useLocation()
-  let waitingUsers = users
+  const waitingUsers = users
   const nav = useNavigate()
   useEffect(()=>{
     socket.on('start game',()=>{
-      console.log(waitingUsers);
           nav('/word-choose',{state:waitingUsers[0]})
-          // waitingUsers.shift();
-          console.log(waitingUsers)
       
     })
     socket.on('start guess',()=>{
