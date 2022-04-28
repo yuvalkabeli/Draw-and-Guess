@@ -7,30 +7,32 @@ const styles = {
 };
 
 
-export default function Drawing() {
+export default function Drawing({socket}) {
     const canvas = useRef()
+    const transferStrokes = async () => {
+        //sends stroke to the other canvas
+        
+        const stroke = await canvas.current.exportPaths("png") 
+    }
 
-  return (
+    return (
       <div>
         <ReactSketchCanvas
           ref={canvas}
           strokeWidth={5}
           strokeColor="black"
-          onChange={async () => {
-              //send this to the other canvas
-            const l = await canvas.current.exportPaths("png") 
-            }
-        }
-        />
+          onChange={()=>transferStrokes()}
+          />
         <button onClick={async()=>{
-            canvas.current.resetCanvas()
+          canvas.current.resetCanvas()
         }} className='clear'>clear</button>
         <button onClick={async()=>{
-            canvas.current.undo()
+          canvas.current.undo()
         }} className='undo'>undo</button>
         <button onClick={async()=>{
             canvas.current.redo()
-        }} className='redo'>redo</button>
+          }} className='redo'>redo</button>
         </div> 
   )
+  
 }

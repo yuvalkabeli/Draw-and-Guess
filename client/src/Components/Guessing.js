@@ -7,22 +7,20 @@ const styles = {
 };
 
 
-export default function Drawing() {
+export default function Drawing({socket}) {
     const canvas = useRef()
 
   return (
       <div>
         <ReactSketchCanvas
           ref={canvas}
-          strokeWidth={5}
-          strokeColor="none"
+          strokeColor="none"   
           onChange={async () => {
-              //recieve stroke from original canvas
-            canvas.current.loadPaths()
+              //recieve from the other canvas
+            const l = await canvas.current.exportPaths("png") 
             }
         }
         />
-        <input></input>
         </div> 
   )
 }

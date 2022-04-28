@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 export default function Waiting({socket}) {
-  let {state:users} = useLocation()
+  const {state:users} = useLocation()
+  let waitingUsers = users
   const nav = useNavigate()
   useEffect(()=>{
     socket.on('start game',()=>{
-      console.log(users);
-          nav('/word-choose',{state:users[0]})
-          users.shift();
-          console.log(users)
+      console.log(waitingUsers);
+          nav('/word-choose',{state:waitingUsers[0]})
+          // waitingUsers.shift();
+          console.log(waitingUsers)
       
     })
-    socket.on('start draw',()=>{
+    socket.on('start guess',()=>{
       nav('/guessing')
     })
 
@@ -23,7 +24,7 @@ export default function Waiting({socket}) {
     // 2.player is waiting for the other to pick a word 
   },[users])
   const log = ()=>{
-    console.log(users)
+    console.log(waitingUsers)
   }
   return (
     <div>

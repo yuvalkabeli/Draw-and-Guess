@@ -31,9 +31,13 @@ io.on('connection', (socket) => {
             }
         }
         else{
-            io.to().emit('room full')
+            io.emit('room full')
             console.log(users);
         }
+    })
+    socket.on('start draw',()=>{
+        console.log(users[1]);
+        socket.to(users[1].id).emit('start guess')
     })
 });
 
