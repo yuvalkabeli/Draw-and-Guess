@@ -13,9 +13,17 @@ export default function Drawing({socket}) {
       socket.on('load stroke',(stroke)=>{
         canvas.current.loadPaths(stroke)
       })
+      socket.on('reset canvas',()=>{
+        console.log("reset canvas is also here")
+        canvas.current.resetCanvas()
+      })
       socket.on('undo',()=>{
         console.log("undo is also here")
-        canvas.current.undo()
+        canvas.current.clearCanvas()
+      })
+      socket.on('redo',()=>{
+        console.log("redo is also here")
+        canvas.current.redo()
       })
     },[socket])
   return (

@@ -44,6 +44,14 @@ io.on('connection', (socket) => {
         console.log('undo is here')
         socket.to(users[1].id).emit('undo')
     })
+    socket.on('redo',()=>{
+        console.log('redo is here')
+        socket.to(users[1].id).emit('redo')
+    })
+    socket.on('reset canvas',()=>{
+        console.log('reset canvas is here')
+        socket.to(users[1].id).emit('reset canvas')
+    })
 
     socket.on("disconnect", () => {
         io.emit("messageBack", { message: "disconnected" });

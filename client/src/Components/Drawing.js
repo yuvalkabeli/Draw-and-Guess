@@ -17,6 +17,7 @@ export default function Drawing({socket}) {
     }
     const transferResetCanvas=()=>{
 socket.emit('reset canvas')
+ canvas.current.resetCanvas()
     }
     const transferUndo=()=>{
 socket.emit('undo')
@@ -24,6 +25,7 @@ socket.emit('undo')
     }
     const transferRedo=()=>{
 socket.emit('redo')
+canvas.current.redo()
     }
     return (
       <div>
@@ -33,15 +35,11 @@ socket.emit('redo')
           strokeColor="black"
           onChange={()=>transferStrokes()}
           />
-        <button onClick={()=>{
-          canvas.current.resetCanvas()
-        }} className='clear'>clear</button>
+        <button onClick={()=>transferResetCanvas()} className='clear'>clear</button>
         
         <button onClick={()=>transferUndo()} className='undo'>undo</button>
 
-        <button onClick={()=>{
-            canvas.current.redo()
-          }} className='redo'>redo</button>
+        <button onClick={()=>transferRedo()} className='redo'>redo</button>
         </div> 
   )
   
