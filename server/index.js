@@ -41,11 +41,11 @@ io.on('connection', (socket) => {
     socket.on('pass stroke', (stroke) => {
         socket.to(users[1].id).emit('load stroke', stroke);
     })
-    socket.on('undo', () => {
-        socket.to(users[1].id).emit('undo');
+    socket.on('undo', (stroke) => {
+        socket.to(users[1].id).emit('undo', stroke);
     })
-    socket.on('redo', () => {
-        socket.to(users[1].id).emit('redo');
+    socket.on('redo', (stroke) => {
+        socket.to(users[1].id).emit('redo', stroke);
     })
     socket.on('reset canvas', () => {
         socket.to(users[1].id).emit('reset canvas');

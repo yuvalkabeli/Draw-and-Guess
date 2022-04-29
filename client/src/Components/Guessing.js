@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { ReactSketchCanvas } from 'react-sketch-canvas';
-
 const styles = {
   border: '0.0625rem solid #9c9c9c',
   borderRadius: '0.25rem',
@@ -22,12 +21,19 @@ export default function Drawing({ socket }) {
       if (!canvas.current) return
       canvas.current.resetCanvas()
     })
-    socket.on('undo', () => {
+    socket.on('undo', (stroke) => {
       if (!canvas.current) return
+      canvas.current.clearCanvas()
+      canvas.current.loadPaths(stroke)
+      canvas.current.clearCanvas()
       canvas.current.undo()
+      canvas.current.undo()
+
     })
-    socket.on('redo', () => {
+    socket.on('redo', (stroke) => {
       if (!canvas.current) return
+      canvas.current.clearCanvas()
+      canvas.current.loadPaths(stroke)
       canvas.current.redo()
     })
 

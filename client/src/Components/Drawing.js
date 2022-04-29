@@ -26,12 +26,14 @@ export default function Drawing({ socket }) {
     socket.emit('reset canvas')
     canvas.current.resetCanvas()
   }
-  const transferUndo = () => {
-    socket.emit('undo')
+  const transferUndo = async () => {
+    const stroke = await canvas.current.exportPaths("png")
+    socket.emit('undo', stroke)
     canvas.current.undo()
   }
-  const transferRedo = () => {
-    socket.emit('redo')
+  const transferRedo = async () => {
+    const stroke = await canvas.current.exportPaths("png")
+    socket.emit('redo', stroke)
     canvas.current.redo()
   }
   return (
