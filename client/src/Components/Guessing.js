@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { ReactSketchCanvas } from 'react-sketch-canvas';
 
 const styles = {
@@ -7,32 +8,47 @@ const styles = {
 };
 
 
-export default function Drawing({socket}) {
-    const canvas = useRef()
-    useEffect(()=>{
-      socket.on('load stroke',(stroke)=>{
-        canvas.current.loadPaths(stroke)
-      })
-      socket.on('reset canvas',()=>{
-        console.log("reset canvas is also here")
-        canvas.current.resetCanvas()
-      })
-      socket.on('undo',()=>{
-        console.log("undo is also here")
-        canvas.current.clearCanvas()
-      })
-      socket.on('redo',()=>{
-        console.log("redo is also here")
-        canvas.current.redo()
-      })
-    },[socket])
+export default function Drawing({ socket }) {
+  const canvas = useRef()
+  const guess = useRef()
+  // const [forceRender, setForceRender] = useState(0)
+  const nav = useNavigate()
+  useEffect(() => {
+    socket.on('load stroke', (stroke) => {
+      if (!canvas.current) return
+      canvas.current.loadPaths(stroke)
+    })
+    socket.on('reset canvas', () => {
+      if (!canvas.current) return
+      canvas.current.resetCanvas()
+    })
+    socket.on('undo', () => {
+      if (!canvas.current) return
+      canvas.current.undo()
+    })
+    socket.on('redo', () => {
+      if (!canvas.current) return
+      canvas.current.redo()
+    })
+
+    socket.on('switch', () => {
+      console.log('you win')
+      nav('/word-choose')
+    })
+  }, [socket])
+  const tryGuess = () => {
+    console.log('try guess')
+    socket.emit('try guess', guess.current.value)
+  }
   return (
-      <div>
-        <ReactSketchCanvas
-          ref={canvas}
-          strokeColor="none"   
-        />
-        <input type="text" />
-        </div> 
+    <div>
+      <ReactSketchCanvas
+        ref={canvas}
+        strokeWidth={3}
+        strokeColor="none"
+      />
+      <input type="text" ref={guess} />
+      <button onClick={() => tryGuess()}>Guess!</button>
+    </div>
   )
 }

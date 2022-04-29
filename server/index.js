@@ -9,7 +9,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 let users = [];
-let score=0;
+let score = 0;
+let currentGuessedWord = ''
 const server = app.listen(port, () => {
     console.log(`Listening on port http://localhost:${port}:`);
 })
@@ -18,43 +19,48 @@ const io = socketIo(server);
 
 
 io.on('connection', (socket) => {
-    socket.on('enter game',(username)=>{
-        if(users.length<2){
+    socket.on('enter game', (username) => {
+        if (users.length < 2) {
             users.push({
                 username,
-                id:socket.id
+                id: socket.id
             })
-            socket.emit('users',users)
-            if(users.length===2){
+            socket.emit('users', users)
+            if (users.length === 2) {
                 socket.to(users[0].id).emit('start game');
             }
         }
-        else{
+        else {
             io.emit('room full');
         }
     })
-    socket.on('start draw',()=>{
+    socket.on('start draw', (wordData) => {
+        currentGuessedWord = wordData;
         socket.to(users[1].id).emit('start guess');
     })
-    socket.on('pass stroke',(stroke)=>{
-        console.log(users[1])
-        socket.to(users[1].id).emit('load stroke',stroke)
+    socket.on('pass stroke', (stroke) => {
+        socket.to(users[1].id).emit('load stroke', stroke);
     })
-    socket.on('undo',()=>{
-        console.log('undo is here')
-        socket.to(users[1].id).emit('undo')
+    socket.on('undo', () => {
+        socket.to(users[1].id).emit('undo');
     })
-    socket.on('redo',()=>{
-        console.log('redo is here')
-        socket.to(users[1].id).emit('redo')
+    socket.on('redo', () => {
+        socket.to(users[1].id).emit('redo');
     })
-    socket.on('reset canvas',()=>{
-        console.log('reset canvas is here')
-        socket.to(users[1].id).emit('reset canvas')
+    socket.on('reset canvas', () => {
+        socket.to(users[1].id).emit('reset canvas');
     })
-
+    socket.on('try guess', (guess) => {
+        const { points, word } = currentGuessedWord;
+        console.log(word)
+        if (guess === word) {
+            score += Number(points);
+            users.push(users.shift());
+            io.emit('switch', users);
+        }
+    });
     socket.on("disconnect", () => {
         io.emit("messageBack", { message: "disconnected" });
-      });
+    });
 });
 
