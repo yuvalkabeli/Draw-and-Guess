@@ -41,6 +41,10 @@ export default function Drawing({ socket }) {
       console.log('you win')
       nav('/word-choose')
     })
+    socket.on('end game', ({ score, users }) => {
+      alert(`score: ${score} user1:${users[0].username}   user:${users[1].username}`)
+      nav('/waiting')
+    })
   }, [socket])
   const tryGuess = () => {
     console.log('try guess')

@@ -52,7 +52,7 @@ io.on('connection', (socket) => {
     })
     socket.on('try guess', (guess) => {
         const { points, word } = currentGuessedWord;
-        console.log(word)
+        console.log(word);
         if (guess === word) {
             score += Number(points);
             users.push(users.shift());
@@ -60,7 +60,12 @@ io.on('connection', (socket) => {
         }
     });
     socket.on("disconnect", () => {
-        io.emit("messageBack", { message: "disconnected" });
+        const usersCopy = [...users];
+        users = users.filter((user) => user.id !== socket.id);
+        if (users.length === 1) {
+            io.to(users[0].id).emit('end game', { score, users: usersCopy });
+            score = 0;
+        }
     });
 });
 

@@ -13,9 +13,15 @@ export default function WordChoose({ socket }) {
   useEffect(() => {
     seteasyWord(findWordByLength(3, 4))
     setMediumWord(findWordByLength(5))
-    setHardWord(findWordByLength(6, 10))
+    setHardWord(findWordByLength(6, 9))
   }, [])
 
+  useEffect(() => {
+    socket.on('end game', ({ score, users }) => {
+      alert(`score: ${score} user1:${users[0].username}   user:${users[1].username}`)
+      nav('/waiting')
+    })
+  }, [socket])
   const sendWord = (e) => {
     const wordData = { points: e.target.value, word: e.target.innerText }
     socket.emit('start draw', wordData)

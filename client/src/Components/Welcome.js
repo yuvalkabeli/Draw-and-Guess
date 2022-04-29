@@ -13,6 +13,7 @@ export default function Welcome({ socket }) {
         socket.on('room full', () => {
             console.log('room is full')
         })
+
     }, [socket])
     return (
         <div>

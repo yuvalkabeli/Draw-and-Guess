@@ -16,6 +16,10 @@ export default function Drawing({ socket }) {
       console.log(users)
       nav('/waiting', { state: users })
     })
+    socket.on('end game', ({ score, users }) => {
+      alert(`score: ${score} user1:${users[0].username}   user:${users[1].username}`)
+      nav('/waiting')
+    })
   }, [socket])
   const transferStrokes = async () => {
     //sends stroke to the other canvas

@@ -11,15 +11,15 @@ const socket = io.connect(server);
 export default function App() {
   return (
     <div className="container">
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Welcome socket={socket}/>} />
-        <Route path="/word-choose" element={<WordChoose  socket={socket}/>} />
-        <Route path="/waiting" element={<Waiting  socket={socket}/>} />
-        <Route path="/drawing" element={<Drawing  socket={socket}/>} />
-        <Route path="/guessing" element={<Guessing  socket={socket}/>} />
-      </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Welcome socket={socket} />} />
+          <Route path="/word-choose" element={<WordChoose socket={socket} />} />
+          <Route path="/waiting" element={<Waiting socket={socket} />} />
+          <Route path="/drawing" element={<Drawing socket={socket} />} />
+          <Route path="/guessing" element={<Guessing socket={socket} />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
