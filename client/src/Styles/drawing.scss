@@ -1,0 +1,72 @@
+.drawing {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .brush-color {
+        border: none;
+        margin: 5px;
+        width: 80px;
+        height: 40px;
+        cursor: pointer;
+    }
+
+    .pick-color {
+        margin-top: .5rem;
+        font-weight: 600;
+    }
+
+    .pick-color-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn {
+        border-radius: 4px;
+        float: left;
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        margin: 20px 0 25px 0;
+        background-color: #2C3E50;
+        color: #fff;
+        font-family: 'Indie Flower', cursive !important;
+        font-size: 22px;
+        border: none;
+        text-align: center;
+        transition: all 0.3s ease;
+        -webkit-transition: 0.3s;
+        -moz-transition: 0.3s;
+        cursor: pointer;
+
+        &:hover {
+            transition: all 0.3s ease;
+            background-color: #374b60;
+        }
+    }
+
+    .drawing-btns {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        button {
+            font-size: 60px !important;
+            color: #2C3E50;
+            border: none;
+            margin: 0 3px;
+            background: transparent;
+            transition: all 0.4s ease;
+
+            &:hover {
+                cursor: pointer;
+                transform: scale(1.2);
+                transition: all 0.4s ease;
+            }
+        }
+    }
+
+}

@@ -1,7 +1,6 @@
 import Welcome from "./Components/Welcome.js";
 import io from "socket.io-client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./Styles/style.scss"
 import Guessing from "./Components/Guessing.js";
 import Drawing from "./Components/Drawing.js";
 import Waiting from "./Components/Waiting.js";
