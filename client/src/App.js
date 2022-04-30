@@ -5,6 +5,7 @@ import Guessing from "./Components/Guessing.js";
 import Drawing from "./Components/Drawing.js";
 import Waiting from "./Components/Waiting.js";
 import WordChoose from "./Components/WordChoose.js";
+import { ToastContainer } from "react-toastify";
 const server = "http://localhost:5000/";
 const socket = io.connect(server);
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/drawing" element={<Drawing socket={socket} />} />
           <Route path="/guessing" element={<Guessing socket={socket} />} />
         </Routes>
+        <ToastContainer />
       </BrowserRouter>
     </div>
   );

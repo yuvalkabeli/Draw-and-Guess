@@ -7,11 +7,38 @@
         margin: 0 auto;
     }
 
+    .guessing-headline {
+        margin: 1rem 0;
+    }
+
     // Fonts
 
     @import url(https://fonts.googleapis.com/css?family=Indie+Flower);
 
     // Fancy inputs
+    .btn {
+        border-radius: 4px;
+        position: absolute;
+        bottom: 10px;
+        width: 60%;
+        height: 50px;
+        line-height: 50px;
+        background-color: #b61212;
+        color: #fff;
+        font-family: 'Indie Flower', cursive !important;
+        font-size: 22px;
+        border: none;
+        text-align: center;
+        transition: all 0.3s ease;
+        -webkit-transition: 0.3s;
+        -moz-transition: 0.3s;
+        cursor: pointer;
+
+        &:hover {
+            transition: all 0.3s ease;
+            background-color: #b31e1ebb;
+        }
+    }
 
     #fancy-inputs {
         display: flex;

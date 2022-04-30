@@ -4,6 +4,11 @@
     justify-content: center;
     align-items: center;
 
+    .drawing-headline {
+        margin: 1rem 0;
+        color: #2C3E50;
+    }
+
     .brush-color {
         border: none;
         margin: 5px;
@@ -13,7 +18,6 @@
     }
 
     .pick-color {
-        margin-top: .5rem;
         font-weight: 600;
     }
 
@@ -26,12 +30,12 @@
 
     .btn {
         border-radius: 4px;
-        float: left;
-        width: 100%;
+        position: absolute;
+        bottom: 10px;
+        width: 60%;
         height: 50px;
         line-height: 50px;
-        margin: 20px 0 25px 0;
-        background-color: #2C3E50;
+        background-color: #b61212;
         color: #fff;
         font-family: 'Indie Flower', cursive !important;
         font-size: 22px;
@@ -44,7 +48,7 @@
 
         &:hover {
             transition: all 0.3s ease;
-            background-color: #374b60;
+            background-color: #b31e1ebb;
         }
     }
 
@@ -63,10 +67,20 @@
 
             &:hover {
                 cursor: pointer;
-                transform: scale(1.2);
+                transform: scale(1.3);
                 transition: all 0.4s ease;
             }
         }
     }
 
+    .brush-settings {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+
+        .brush-size {
+            cursor: pointer;
+        }
+    }
 }

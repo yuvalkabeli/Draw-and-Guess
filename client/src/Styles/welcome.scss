@@ -27,7 +27,7 @@ body {
     @import url(https://fonts.googleapis.com/css?family=Indie+Flower);
 
     .welcome-headline {
-        margin: 50px 0 0 0;
+        margin: 10px 0 0 0;
         font-family: 'Indie Flower', cursive;
         font-size: 48px;
         font-weight: normal;
@@ -37,7 +37,7 @@ body {
     #fancy-inputs {
         float: left;
         width: 100%;
-        margin: 0 0 90px 0;
+        margin: 0 0 80px 0;
 
         .welcome-label {
             float: left;
@@ -150,7 +150,7 @@ body {
         width: 100%;
         height: 50px;
         line-height: 50px;
-        margin: 20px 0 50px 0;
+        margin: 10px 0 60px 0;
         background-color: #2C3E50;
         color: #fff;
         font-family: 'Indie Flower', cursive;
@@ -176,7 +176,7 @@ body {
         }
 
         .welcome-middle {
-            width: 280px !important;
+            width: 270px !important;
             position: absolute;
             top: 0;
             overflow: hidden;
@@ -184,7 +184,7 @@ body {
 
         .welcome-input,
         .input {
-            width: 280px !important;
+            width: 270px !important;
         }
     }
 }

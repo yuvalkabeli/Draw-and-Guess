@@ -16,7 +16,7 @@ export default function Welcome({ socket }) {
         }
     }
     useEffect(() => {
-        socket.emit('get HighScore')
+        socket.emit('get highScore')
     }, [])
     const enterGame = () => {
         socket.emit('enter game', nameRef.current.value)
@@ -30,10 +30,15 @@ export default function Welcome({ socket }) {
         socket.on('users', (users) => {
             nav('/waiting', { state: users })
         })
-        socket.on('room full', () => {
-            console.log('room is full')
-        })
+        socket.on('room full', (users) => {
 
+            console.log(users.length)
+        })
+        socket.on('update highScore', (highScore) => {
+            const { playerOne, playerTwo, score } = highScore[0];
+            setPlayers([...[playerOne, playerTwo]]);
+            setHighScore(score);
+        })
     }, [socket])
     return (
         <div className="welcome" >
@@ -46,7 +51,8 @@ export default function Welcome({ socket }) {
                     </label>
                     <button className="welcome-btn" onClick={() => enterGame()}>Start Game</button>
                     <h1 className='welcome-headline'>Top Score:{highScore}</h1>
-                    <h4 className='welcome-headline'>players:{players[0]},{players[1]}</h4>
+                    <h4 className='welcome-headline'>players:</h4>
+                    <h4 className='welcome-headline'>{players[0]},{players[1]}</h4>
                 </div>
             </div>
         </div>
