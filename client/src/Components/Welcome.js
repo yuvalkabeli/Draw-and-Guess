@@ -21,7 +21,9 @@ export default function Welcome({ socket }) {
         socket.emit('get highScore')
     }, [])
     const enterGame = () => {
-        socket.emit('enter game', nameRef.current.value)
+        const username = nameRef.current.value
+        if (!username) return niceAlert('Please Select A Username', 'error')
+        socket.emit('enter game', username)
     }
     useEffect(() => {
         socket.on('users', (users) => {
@@ -43,7 +45,7 @@ export default function Welcome({ socket }) {
                 <h1 className='welcome-headline'>Draw & Guess</h1>
                 <div id="fancy-inputs">
                     <label className="welcome-label">
-                        <input className='welcome-input' ref={nameRef} type="text" />
+                        <input className='welcome-input' ref={nameRef} type="text" onBlur={() => handleBlur()} />
                         <span><span style={{ display: placeHolder }}>Name</span></span>
                     </label>
                     <button className="welcome-btn" onClick={() => enterGame()}>Start Game</button>

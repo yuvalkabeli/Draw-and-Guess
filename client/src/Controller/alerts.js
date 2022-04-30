@@ -8,10 +8,6 @@ export const niceAlert = (title, icon = 'success') => Swal.fire({
     title,
 })
 
-
-
-
-
 export const errorNotification = (text, position) => {
     toast.error(text, {
         position,

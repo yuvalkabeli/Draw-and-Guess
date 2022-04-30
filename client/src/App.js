@@ -5,8 +5,7 @@ import Guessing from "./Components/Guessing.js";
 import Drawing from "./Components/Drawing.js";
 import Waiting from "./Components/Waiting.js";
 import WordChoose from "./Components/WordChoose.js";
-import { ToastContainer } from "react-toastify";
-const server = "http://localhost:5000/";
+const server = "https://draw--and-guess-server.herokuapp.com/";
 const socket = io.connect(server);
 export default function App() {
   return (
