@@ -12,6 +12,9 @@ const drawGameSchema = new Schema({
     score: {
         type: Number
     },
+    time: {
+        type: String
+    }
 });
 
 module.exports = mongoose.model('Draw & Guess Scores', drawGameSchema);

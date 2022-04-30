@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { ReactSketchCanvas } from 'react-sketch-canvas';
+import { ToastContainer } from 'react-toastify';
 import { errorNotification } from '../Controller/alerts';
 import { niceAlert } from '../Controller/alerts';
 import '../Styles/guessing.scss'
@@ -60,8 +61,8 @@ export default function Drawing({ socket }) {
       errorNotification('Wrong guess, try again!', 'bottom-center');
     })
 
-    socket.on('game results', ({ score, users }) => {
-      niceAlert(`Your Score:${score}`)
+    socket.on('game results', ({ score, users, time }) => {
+      niceAlert(`Your Score:${score} <br/> Your Time:${time}`)
       nav('/')
     })
     socket.on('update score', (score) => {
@@ -94,6 +95,7 @@ export default function Drawing({ socket }) {
         <button className='guessing-btn'>Guess</button>
         <button type='button' onClick={() => endGame()} className='btn'>End Game</button>
       </form>
+      <ToastContainer />
     </div>
   )
 }

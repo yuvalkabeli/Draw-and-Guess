@@ -1,6 +1,6 @@
 import randomWords from 'random-words';
 
-export default function findWordByLength(minLength, maxLength) {
+export const findWordByLength = (minLength, maxLength) => {
     const wordsArray = randomWords({ exactly: 100, maxLength: 10 })
     if (!minLength || minLength < 2)
         minLength = 2;

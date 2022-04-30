@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const socketIo = require('socket.io');
-const { getHighScore, saveSession } = require('./DB/MongoDB')
+const { getHighScore, saveSession } = require('./DB/MongoDB');
+const { getTime } = require('./Controller/helpers');
 require('dotenv').config();
 
 app.use(cors());
@@ -13,6 +14,7 @@ const port = process.env.PORT || 5000
 let users = [];
 let score = 0;
 let currentGuessedWord = ''
+let startTime
 
 const server = app.listen(port, () => {
     console.log(`Listening on port http://localhost:${port}:`);
@@ -24,7 +26,6 @@ const io = socketIo(server);
 io.on('connection', (socket) => {
     socket.on('get highScore', async () => {
         const highScore = await getHighScore();
-        console.log(highScore)
         io.emit('update highScore', (highScore))
     })
     socket.on('enter game', (username) => {
@@ -46,6 +47,7 @@ io.on('connection', (socket) => {
         currentGuessedWord = JSON.parse(wordData);
         socket.to(users[1].id).emit('start guess');
         io.emit('update score', score)
+        if (!startTime) startTime = new Date();
     })
     socket.on('pass stroke', (stroke) => {
         socket.to(users[1].id).emit('load stroke', stroke);
@@ -72,14 +74,17 @@ io.on('connection', (socket) => {
         }
     });
     socket.on('manual end game', async () => {
-        io.emit('game results', { score, users });
+        const time = getTime(startTime, new Date())
+        io.emit('game results', { score, users, time });
         await saveSession({
             playerOne: users[0].username,
             playerTwo: users[1].username,
-            score
+            score,
+            time
         })
         users = [];
         score = 0;
+        startTime = null
     })
     socket.on("disconnect", async () => {
         if (users.length === 0) return
@@ -88,13 +93,16 @@ io.on('connection', (socket) => {
             await saveSession({
                 playerOne: users[0].username,
                 playerTwo: users[1].username,
-                score
+                score,
+                time: getTime(startTime, new Date())
             })
         }
         users = users.filter((user) => user.id !== socket.id);
         if (users.length === 1 && usersCopy.length === 2) {
             io.to(users[0].id).emit('end game', { score, users: usersCopy });
             score = 0;
+            startTime = null
+
         }
     });
 });

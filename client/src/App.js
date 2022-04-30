@@ -19,7 +19,6 @@ export default function App() {
           <Route path="/drawing" element={<Drawing socket={socket} />} />
           <Route path="/guessing" element={<Guessing socket={socket} />} />
         </Routes>
-        <ToastContainer />
       </BrowserRouter>
     </div>
   );

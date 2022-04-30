@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import findWordByLength from '../Controller/helpers'
+import { findWordByLength } from '../Controller/helpers'
 import '../Styles/wordChoose.scss'
 
 export default function WordChoose({ socket }) {
