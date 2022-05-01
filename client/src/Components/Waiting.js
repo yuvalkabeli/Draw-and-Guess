@@ -13,7 +13,6 @@ export default function Waiting({ socket }) {
       nav('/guessing')
     })
     socket.on('end game', ({ score, users }) => {
-      alert(`score: ${score} user1:${users[0].username}   user:${users[1].username}`)
       nav('/waiting')
     })
   }, [socket])

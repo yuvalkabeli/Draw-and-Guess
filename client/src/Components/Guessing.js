@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { AiOutlineClose } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { ReactSketchCanvas } from 'react-sketch-canvas';
 import { ToastContainer } from 'react-toastify';
@@ -72,7 +73,8 @@ export default function Drawing({ socket }) {
   }, [socket])
   const tryGuess = (e) => {
     e.preventDefault()
-    socket.emit('try guess', guess.current.value)
+    const guessWord = guess.current.value
+    socket.emit('try guess', guessWord.toLowerCase())
   }
   const endGame = () => {
     socket.emit('manual end game')
@@ -90,10 +92,10 @@ export default function Drawing({ socket }) {
         />
         <label className="input">
           <input className='guessing-input' ref={guess} onBlur={() => handleBlur()} type="text" />
-          <span><span style={{ display: placeHolder }} >Guess the draw</span></span>
+          <span><span style={{ display: placeHolder }} >Write Guess</span></span>
         </label>
         <button className='guessing-btn'>Guess</button>
-        <button type='button' onClick={() => endGame()} className='btn'>End Game</button>
+        <button type='button' onClick={() => endGame()} className='btn'><AiOutlineClose /></button>
       </form>
       <ToastContainer />
     </div>

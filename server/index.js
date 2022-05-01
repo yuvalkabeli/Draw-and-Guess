@@ -6,7 +6,7 @@ const { getHighScore, saveSession } = require('./DB/MongoDB');
 const { getTime } = require('./Controller/helpers');
 require('dotenv').config();
 
-app.use(cors());
+app.use(cors())
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -20,8 +20,13 @@ const server = app.listen(port, () => {
     console.log(`Listening on port http://localhost:${port}:`);
 })
 
-const io = socketIo(server);
-
+const io = socketIo(server, {
+    cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"],
+        allowedHeaders: ["content-type"]
+    },
+});
 
 io.on('connection', (socket) => {
     socket.on('get highScore', async () => {

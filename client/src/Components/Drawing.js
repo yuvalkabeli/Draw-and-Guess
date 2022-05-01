@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ReactSketchCanvas } from 'react-sketch-canvas';
-import { AiOutlineUndo, AiOutlineRedo } from 'react-icons/ai'
+import { AiOutlineUndo, AiOutlineRedo, AiOutlineClose } from 'react-icons/ai'
 import { MdDelete } from 'react-icons/md'
 import '../Styles/drawing.scss'
 
@@ -97,7 +97,7 @@ export default function Drawing({ socket }) {
             <input ref={colorRef} onChange={() => colorSelected()} className="brush-color" type="color" />
             <input ref={sizeRef} onChange={() => sizeSelected()} className="brush-size" type="range" defaultValue={4} min="1" max="50" />
           </div>
-          <button onClick={() => endGame()} className='btn'>End Game</button>
+          <button onClick={() => endGame()} className='btn'><AiOutlineClose /></button>
         </div>
       </div>
     </div >
