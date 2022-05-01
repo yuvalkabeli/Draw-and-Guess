@@ -15,15 +15,15 @@ The game will go on until one of the players leaves by:
 
 ### Techonologies Used
 #### FrontEnd
-React - frontend architecture.
-Socket.IO/client -  for client-side communication with the server.
-Sass - Design for the entire app.
-AWS S3 - Deployment.
+* React - frontend architecture.
+* Socket.IO/client -  for client-side communication with the server.
+* Sass - Design for the entire app.
+* AWS S3 - Deployment.
 
 #### BackEnd
-Express + Socket.IO - server architecture
-MongoDB - Database for storing game sessions
-Heroku - Deployment.
+* Express + Socket.IO - server architecture
+* MongoDB - Database for storing game sessions
+* Heroku - Deployment.
 
 
 ## Deployment
