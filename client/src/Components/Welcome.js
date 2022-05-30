@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../Styles/welcome.scss'
 import { niceAlert } from '../Controller/alerts';
+import { getHighScore, getUsers } from '../Controller/socketFunctions';
 export default function Welcome({ socket }) {
     const nameRef = useRef()
     const nav = useNavigate()
@@ -9,6 +10,7 @@ export default function Welcome({ socket }) {
     const [highScore, setHighScore] = useState(0)
     const [players, setPlayers] = useState([])
     const [time, setTime] = useState('')
+
     const handleBlur = () => {
         if (nameRef.current.value.length > 0) {
             setPlaceHolder('none')
@@ -17,19 +19,16 @@ export default function Welcome({ socket }) {
             setPlaceHolder('')
         }
     }
-    useEffect(() => {
-        socket.emit('get highScore')
-    }, [])
     const enterGame = () => {
         const username = nameRef.current.value
         if (!username) return niceAlert('Please Select A Username', 'error')
         socket.emit('enter game', username)
     }
+
+    useEffect(() => getHighScore(socket), [])
     useEffect(() => {
-        socket.on('users', (users) => {
-            nav('/waiting', { state: users })
-        })
-        socket.on('room full', (users) => {
+        getUsers(socket, nav)
+        socket.on('room full', () => {
             niceAlert('Room Is Full')
         })
         socket.on('update highScore', (highScore) => {
@@ -38,6 +37,7 @@ export default function Welcome({ socket }) {
             setHighScore(score);
             setTime(time);
         })
+        return socket.off()
     }, [socket])
     return (
         <div className="welcome" >
