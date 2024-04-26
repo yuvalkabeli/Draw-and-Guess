@@ -1,23 +1,33 @@
-Once you click "Start Game" you will be sent to a waiting room until another player joins the game.
-The game starts with the first player choosing 1 out of 3 words that he would like to draw for the other person.
-When a word is chosen, one player draws and in the meantime, the other player guesses the word.
-Once a word is guessed correctly, the roles switch and the game starts over.
-The game will go on until one of the players leaves by:
-1.pressing the red X icon on the top left of the screen.
-2.exiting the browser.
+# Draw and Guess Game
 
-### Techonologies Used
-#### FrontEnd
-* React - frontend architecture.
-* Socket.IO/client -  for client-side communication with the server.
-* Sass - Design for the entire app.
-* AWS S3 - Deployment.
+## Introduction
+"Draw and Guess" is an interactive online game where players challenge each other in a fun drawing and guessing game. Upon clicking "Start Game," players are taken to a waiting room until another player joins. The game alternates roles between drawing and guessing, with players taking turns to either illustrate or identify words.
 
-#### BackEnd
-* Express + Socket.IO - server architecture
-* MongoDB - Database for storing game sessions
-* Heroku - Deployment.
+## Gameplay
+- **Starting the Game**: Click "Start Game" to enter the waiting room. The game will commence when another player joins.
+- **Game Process**:
+  1. The first player selects one of three words to draw.
+  2. The chosen player draws, while the other guesses the word.
+  3. Once the word is correctly guessed, roles are switched, and the process repeats.
+- **Ending the Game**: Players can leave the game at any time by:
+  - Clicking the red X icon on the top left of the screen.
+  - Exiting the browser.
 
+## Technologies Used
+
+### FrontEnd
+- **React**: Used for the frontend architecture.
+- **Socket.IO/client**: Facilitates client-side communication with the server.
+- **Sass**: Provides styling for the app.
+- **AWS S3**: Handles deployment.
+
+### BackEnd
+- **Express + Socket.IO**: Forms the server architecture.
+- **MongoDB**: Database used for storing game sessions.
+- **Heroku**: Deployment platform.(no longer active)
 
 ## Deployment
-Game Link : https://bit.ly/3ktXl1h
+The game was previously available at [this link](https://bit.ly/3ktXl1h). However, it is currently inactive as the server is not live. The source code for the server is still available on the GitHub page for anyone interested in setting up their server to host the game.
+
+## Access to Code
+The complete source code and server implementation details are available in this repository. This allows developers to view, use, or modify the code for their purposes, and potentially revive the game for new environments or uses.
